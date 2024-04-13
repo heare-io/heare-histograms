@@ -6,7 +6,7 @@ authors = ["Sean Fitzgerald <sean@fitzgeralds.me>"]
 license = "MIT"
 readme = "README.md"
 packages = [
-    { include = "heare", from = "." },
+    { include = "heare", from = "src" },
 ]
 
 [tool.poetry.dependencies]
