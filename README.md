@@ -60,8 +60,8 @@ explanation = group.explain_sample()
 The Group class allows you to combine multiple Histogram instances or other Group instances into a single entity. You can sample values from the group and obtain an explanation of the sampled value, breaking it down into contributions from each element.
 
 
-Contributing
+# Contributing
 Contributions to the library are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on the [GitHub repository](https://github.com/heare-io/heare-histograms).
 
-License
-This library is released under the [MIT License](https://opensource.org/license/mit.
+# License
+This library is released under the [MIT License](https://opensource.org/license/mit).
