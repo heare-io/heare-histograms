@@ -39,7 +39,6 @@ Example:
 import math
 from typing import TypeVar, Generic, List, Union, Callable, Self, Dict, Tuple, Any
 import random
-import bisect
 
 T = TypeVar('T')
 
@@ -52,11 +51,14 @@ class Histogram(Generic[T]):
     Attributes:
         _data (List[T]): A list to store the observed data points.
         _max_size (int): The maximum number of data points to keep in the histogram.
+        _dirty (bool): Indicates whether the contents of data are currently sorted, or need to be.
     """
 
     def __init__(self, max_size: int = 1000, data: List[T] = None):
         self._data: List[T] = data or []
+        self._data.sort()
         self._max_size: int = max_size
+        self._dirty = False
 
     def __add__(self, other: Union[T, List[T], Self]) -> Self:
         """
@@ -107,7 +109,6 @@ class Histogram(Generic[T]):
         size = max(self._max_size, other._max_size)
         if len(all_data) > self._max_size:
             all_data = random.sample(all_data, size)
-        all_data.sort()
         result = Histogram(max_size=size, data=all_data)
         result.sample_n = self.sample_n
         return result
@@ -122,10 +123,11 @@ class Histogram(Generic[T]):
         if not isinstance(point_or_points, list):
             point_or_points = [point_or_points]
         for point in point_or_points:
-            bisect.insort(self._data, point)
-        if len(self._data) > self._max_size:
-            self._data = random.sample(self._data, self._max_size)
-            self._data.sort()
+            if len(self._data) == self._max_size:
+                self._data[random.randint(0, self._max_size - 1)] = point
+            else:
+                self._data.append(point)
+        self._dirty = True
 
     def sample(self) -> T:
         """
@@ -147,6 +149,9 @@ class Histogram(Generic[T]):
         Returns:
             T: The data point at the given percentile.
         """
+        if self._dirty:
+            self._data.sort()
+            self._dirty = False
         idx = math.floor(len(self._data) * p)
         return self._data[min(idx, len(self._data) - 1)]
 
