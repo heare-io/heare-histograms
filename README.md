@@ -7,7 +7,7 @@ To install the library, you can use pip:
 
 
 ```sh
-pip install histogram-group-library
+pip install heare-histograms
 ```
 
 # Usage
