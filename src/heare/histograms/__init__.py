@@ -155,6 +155,10 @@ class Histogram(Generic[T]):
         idx = math.floor(len(self._data) * p)
         return self._data[min(idx, len(self._data) - 1)]
 
+    def mean(self) -> float:
+        total = sum(self._data)
+        return float(total) / len(self._data)
+
     # pylint: disable=method-hidden
     def sample_n(self, n: int) -> List[T]:
         """

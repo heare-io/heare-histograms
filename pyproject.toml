@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "heare-histograms"
-version = "0.1.2"
+version = "0.1.3"
 description = "Pure python histogram implementation for analysis and prediction."
 authors = ["Sean Fitzgerald <sean@fitzgeralds.me>"]
 license = "MIT"
